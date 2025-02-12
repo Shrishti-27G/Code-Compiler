@@ -1,7 +1,10 @@
 import { apiConnector } from "../apiConnector";
 import { authEnpoint } from "../endPoints/authEndpoints";
+import { setUserLoading } from "../../redux/slices/authSlice";
 
 const { RegisterUser_API, LogInUser_API } = authEnpoint;
+
+
 
 // register user
 export const registerUser = async (data) => {
@@ -33,7 +36,9 @@ export const registerUser = async (data) => {
 };
 
 // login user
-export const login = async (data) => {
+
+export const login = (data) => async (dispatch) => {
+  dispatch(setUserLoading(true)); // ✅ Dispatch it correctly
   try {
     console.log("Data in login api -> ", data);
     const { email, password } = data;
@@ -42,13 +47,13 @@ export const login = async (data) => {
       throw new Error("Email and password are required");
     }
 
-    const response = await apiConnector("POST", LogInUser_API, {
-      email,
-      password,
-    });
+    const response = await apiConnector("POST", LogInUser_API, { email, password });
 
     console.log("Response from login user in authApi -> ", response);
   } catch (error) {
     console.log("Error: ", error);
+  } finally {
+    dispatch(setUserLoading(false)); // ✅ Dispatch it correctly
   }
 };
+

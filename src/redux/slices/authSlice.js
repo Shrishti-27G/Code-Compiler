@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
-  loading: false,
+  Userloading: false,
   modal: false,
   // token: localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null,
 };
@@ -14,7 +14,7 @@ const authSlice = createSlice({
     setUser(state, value) {
       state.signupData = value.payload;
     },
-    setLoading(state, value) {
+    setUserLoading(state, value) {
       state.loading = value.payload;
     },
     setModal(state, value) {
@@ -23,7 +23,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, setLoading, setModal } =
+export const { setUser, setUserLoading, setModal } =
   authSlice.actions;
 
 
